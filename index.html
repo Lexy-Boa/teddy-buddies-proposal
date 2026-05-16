@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Teddy Buddies × AIBC Foundry — A Services Proposal</title>
+<style>
+  :root{
+    --bg:#08080A;
+    --card:rgba(255,255,255,0.02);
+    --card-2:rgba(255,255,255,0.035);
+    --border:rgba(255,255,255,0.06);
+    --border-2:rgba(255,255,255,0.10);
+    --kelly:#F59E0B;     /* primary / the answer */
+    --user:#8B5CF6;      /* AIBC Foundry / projected */
+    --win:#10B981;       /* discount / savings */
+    --neutral:#6B7280;
+    --t1:#FFFFFF;
+    --t2:rgba(255,255,255,0.62);
+    --t3:rgba(255,255,255,0.36);
+    --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--t1);font-family:var(--sans);
+    line-height:1.72;font-size:16px;-webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;overflow-x:hidden;
+  }
+
+  /* ---------- high-tech ambient layers ---------- */
+  .ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+  .ambient i{position:absolute;display:block;border-radius:50%;filter:blur(95px)}
+  .ambient i:nth-child(1){top:-28%;left:2%;width:72%;height:58%;
+    background:radial-gradient(ellipse,rgba(245,158,11,0.055),transparent 60%)}
+  .ambient i:nth-child(2){bottom:-28%;right:4%;width:64%;height:58%;
+    background:radial-gradient(ellipse,rgba(139,92,246,0.05),transparent 60%)}
+  .grid{position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.022) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,0.022) 1px,transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(ellipse 80% 75% at 50% 30%,#000 0%,transparent 78%);
+    mask-image:radial-gradient(ellipse 80% 75% at 50% 30%,#000 0%,transparent 78%);}
+  .grain{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.45;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);
+    background:rgba(8,8,10,0.72);border-bottom:1px solid var(--border);
+  }
+  .nav-in{
+    max-width:1180px;margin:0 auto;padding:13px 28px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+  }
+  .brand{font-size:14px;font-weight:600;letter-spacing:.2px;white-space:nowrap}
+  .brand b{color:var(--kelly);font-weight:600}
+  .brand span{color:var(--t3);font-weight:400}
+  .brand i{color:var(--user);font-style:normal;font-weight:600}
+  .nav-links{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+  .nav-links a{
+    color:var(--t3);text-decoration:none;font-size:11px;
+    text-transform:uppercase;letter-spacing:1.1px;padding:6px 10px;
+    border-radius:8px;transition:.18s;white-space:nowrap;
+  }
+  .nav-links a:hover,.nav-links a.active{color:var(--t1);background:rgba(255,255,255,0.05)}
+  .progress{position:absolute;left:0;bottom:-1px;height:2px;width:0;
+    background:linear-gradient(90deg,var(--kelly),var(--user));transition:width .12s linear;
+    box-shadow:0 0 12px rgba(245,158,11,0.5)}
+
+  main{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 28px 120px}
+  .wrap{max-width:780px;margin:0 auto}
+
+  /* ---------- hero ---------- */
+  header.hero{padding:104px 0 70px;text-align:center;position:relative}
+  .eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--t3);margin-bottom:24px}
+  h1.title{font-size:clamp(36px,5.4vw,60px);font-weight:300;line-height:1.1;letter-spacing:-1.2px}
+  h1.title b{font-weight:600;color:var(--kelly)}
+  h1.title i{font-style:normal;font-weight:600;color:var(--user)}
+  .x{color:var(--t3);font-weight:200;margin:0 .28em}
+  .sub{margin-top:22px;color:var(--t2);font-size:16.5px}
+  /* refined, clearly-intentional scroll cue */
+  .scrollcue{display:inline-flex;flex-direction:column;align-items:center;gap:14px;
+    margin-top:60px;text-decoration:none;cursor:pointer}
+  .scrollcue .lbl{font-size:11px;letter-spacing:3px;text-transform:uppercase;
+    color:var(--t3);transition:.2s}
+  .scrollcue:hover .lbl{color:var(--t2)}
+  .scrollcue .rail{position:relative;width:22px;height:36px;border-radius:12px;
+    border:1px solid var(--border-2);overflow:hidden}
+  .scrollcue .bead{position:absolute;left:50%;top:7px;width:4px;height:7px;border-radius:3px;
+    transform:translateX(-50%);background:var(--kelly);
+    box-shadow:0 0 8px rgba(245,158,11,0.7);animation:bead 1.9s cubic-bezier(.65,0,.35,1) infinite}
+  @keyframes bead{0%{opacity:0;transform:translate(-50%,0)}
+    18%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translate(-50%,18px)}}
+
+  /* ---------- sections ---------- */
+  section{padding:60px 0;scroll-margin-top:78px}
+  .kicker{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--kelly);
+    margin-bottom:14px;font-weight:600}
+  h2{font-size:30px;font-weight:600;letter-spacing:-.4px;margin-bottom:8px}
+  h3{font-size:18px;font-weight:600;margin:34px 0 12px;color:var(--t1)}
+  h4{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--kelly);margin:26px 0 10px}
+  p{color:var(--t2);margin:16px 0;font-size:16.5px}
+  p strong,li strong{color:var(--t1);font-weight:600}
+  em{font-style:italic}
+  .lead{font-size:18px;color:var(--t2)}
+  ul{margin:14px 0 14px 4px;list-style:none}
+  ul li{position:relative;padding:6px 0 6px 24px;color:var(--t2);font-size:16px}
+  ul li:before{content:"";position:absolute;left:2px;top:15px;width:6px;height:6px;
+    border-radius:50%;background:var(--kelly);opacity:.7}
+  ol{margin:14px 0 14px 22px;color:var(--t2)}
+  ol li{padding:7px 0;font-size:16px}
+  hr.div{border:none;height:1px;background:var(--border);margin:8px 0}
+
+  .note-card{
+    background:linear-gradient(180deg,rgba(245,158,11,0.05),rgba(245,158,11,0.012));
+    border:1px solid rgba(245,158,11,0.16);border-radius:22px;padding:38px 42px;
+  }
+  .note-card p:first-child{margin-top:0}
+  .note-card p:last-child{margin-bottom:0}
+
+  /* ---------- tables ---------- */
+  .tbl{width:100%;border-collapse:separate;border-spacing:0;margin:22px 0;
+    background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+  .tbl th{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);
+    text-align:left;padding:15px 20px;background:rgba(255,255,255,0.025);font-weight:600}
+  .tbl td{padding:14px 20px;font-size:15px;color:var(--t2);border-top:1px solid var(--border)}
+  .tbl td:first-child{color:var(--t1);font-weight:500}
+  .tbl tr:hover td{background:rgba(255,255,255,0.018)}
+  .tbl td.num{font-variant-numeric:tabular-nums;font-family:var(--mono);color:var(--t1)}
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;
+    letter-spacing:.4px}
+  .tag.build{background:rgba(245,158,11,0.14);color:var(--kelly)}
+  .tag.operate{background:rgba(139,92,246,0.16);color:var(--user)}
+  .tag.flat{background:rgba(16,185,129,0.15);color:var(--win)}
+
+  /* ---------- exec summary cards ---------- */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:26px 0 6px}
+  .kpi{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 18px;
+    position:relative;overflow:hidden}
+  .kpi:before{content:"";position:absolute;inset:0 0 auto 0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.14),transparent)}
+  .kpi .lab{font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
+  .kpi .val{font-size:25px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+  .kpi .val small{font-size:12px;color:var(--t3);font-weight:400;letter-spacing:0}
+  .kpi.k1 .val{color:var(--t1)} .kpi.k2 .val{color:var(--win)}
+  .kpi.k3 .val{color:var(--kelly)} .kpi.k4 .val{color:var(--user)}
+
+  /* ---------- pricing explorer ---------- */
+  .explorer{background:var(--card);border:1px solid var(--border-2);border-radius:24px;
+    padding:34px;margin:8px 0 4px;position:relative;overflow:hidden}
+  .explorer:before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(ellipse at 50% -20%,rgba(245,158,11,0.06),transparent 55%)}
+  .ex-head{display:flex;justify-content:space-between;align-items:flex-start;
+    flex-wrap:wrap;gap:16px;margin-bottom:10px;position:relative}
+  .ex-head .t{font-size:13px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--t1)}
+  .ex-head .s{font-size:12.5px;color:var(--t3);margin-top:5px}
+  .flat-pill{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;
+    letter-spacing:1px;text-transform:uppercase;color:var(--win);
+    background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.28);
+    padding:8px 14px;border-radius:999px}
+  .flat-pill i{width:7px;height:7px;border-radius:50%;background:var(--win);
+    box-shadow:0 0 8px rgba(16,185,129,0.8)}
+
+  .equation{display:flex;align-items:center;justify-content:center;gap:clamp(10px,3vw,34px);
+    flex-wrap:wrap;padding:34px 6px 26px;position:relative}
+  .term{text-align:center;cursor:help;border-radius:14px;padding:14px 18px;transition:.22s;
+    border:1px solid transparent}
+  .term:hover{background:rgba(255,255,255,0.035);border-color:var(--border)}
+  .term .tl{font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+  .term .tv{font-size:clamp(26px,4vw,40px);font-weight:600;font-variant-numeric:tabular-nums;
+    letter-spacing:-1px;line-height:1}
+  .term.list .tv{color:var(--t1)}
+  .term.disc .tv{color:var(--win)}
+  .term.net .tv{color:var(--kelly)}
+  .op{font-size:30px;color:var(--t3);font-weight:200}
+  .ex-explain{min-height:74px;background:rgba(255,255,255,0.025);border:1px solid var(--border);
+    border-radius:14px;padding:18px 22px;text-align:center;transition:.25s;position:relative}
+  .ex-explain .et{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+  .ex-explain .ed{font-size:14px;color:var(--t2);line-height:1.6}
+  .ex-explain.idle .ed{color:var(--t3)}
+
+  .year{margin-top:30px}
+  .year .yhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+  .year .yhead .yl{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--t3)}
+  .year .yhead .yt{font-size:13px;color:var(--t2)}
+  .year .yhead .yt b{color:var(--kelly);font-variant-numeric:tabular-nums;font-size:20px;font-weight:600}
+  .strip{display:grid;grid-template-columns:repeat(12,1fr);gap:5px}
+  .mon{height:62px;border-radius:9px;cursor:pointer;position:relative;
+    display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;
+    font-size:10px;color:rgba(255,255,255,0.55);transition:.18s;
+    border:1px solid transparent;background:rgba(245,158,11,0.15)}
+  .mon:hover{transform:translateY(-3px)}
+  .mon:hover,.mon.sel{background:rgba(245,158,11,0.32);border-color:rgba(245,158,11,0.5)}
+  .mon .mtip{position:absolute;bottom:72px;left:50%;transform:translateX(-50%);
+    background:rgba(0,0,0,0.92);border:1px solid var(--border-2);border-radius:9px;
+    padding:8px 11px;font-size:11px;color:#fff;white-space:nowrap;opacity:0;
+    transition:.15s;pointer-events:none;z-index:5}
+  .mon .mtip b{font-variant-numeric:tabular-nums}
+  .mon:hover .mtip{opacity:1;bottom:68px}
+  .strip-leg{display:flex;gap:22px;margin-top:14px;font-size:11.5px;color:var(--t3)}
+  .strip-leg span{display:flex;align-items:center;gap:7px}
+  .dot{width:9px;height:9px;border-radius:3px;display:inline-block}
+  .dot.b{background:var(--kelly)}
+
+  /* ---------- growth chart ---------- */
+  .growth{background:linear-gradient(180deg,rgba(139,92,246,0.05),rgba(255,255,255,0.012));
+    border:1px solid var(--border-2);border-radius:24px;padding:32px;margin:8px 0 4px;
+    position:relative;overflow:hidden}
+  .growth:before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(ellipse at 75% -10%,rgba(139,92,246,0.09),transparent 55%)}
+  .g-head{display:flex;justify-content:space-between;align-items:flex-start;
+    flex-wrap:wrap;gap:18px;position:relative}
+  .g-head .t{font-size:13px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--t1)}
+  .g-head .s{font-size:12.5px;color:var(--t3);margin-top:5px}
+  .g-switch{display:flex;flex-wrap:wrap;background:rgba(255,255,255,0.04);
+    border:1px solid var(--border);border-radius:12px;padding:4px;gap:3px}
+  .g-switch button{appearance:none;border:0;background:transparent;color:var(--t3);
+    font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.3px;
+    padding:8px 13px;border-radius:9px;cursor:pointer;transition:.2s;white-space:nowrap}
+  .g-switch button:hover{color:var(--t2)}
+  .g-switch button.on{background:rgba(139,92,246,0.16);color:var(--user);
+    box-shadow:inset 0 0 0 1px rgba(139,92,246,0.4)}
+
+  .g-stat{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 22px;
+    margin:26px 0 8px;position:relative}
+  .g-delta{display:flex;align-items:baseline;gap:10px}
+  .g-delta span{font-size:46px;font-weight:700;letter-spacing:-1.5px;
+    font-variant-numeric:tabular-nums;
+    background:linear-gradient(95deg,var(--kelly),var(--user));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .g-delta i{font-style:normal;font-size:13px;color:var(--t3);letter-spacing:.5px}
+  .g-from{font-size:13.5px;color:var(--t3)}
+  .g-from b{color:var(--t2);font-variant-numeric:tabular-nums;font-weight:600}
+  .g-from b.hi{color:var(--user)}
+  .g-from span{margin:0 6px;color:var(--t3)}
+
+  .g-plot{position:relative;margin:14px 0 6px}
+  .g-plot svg{display:block;width:100%;height:auto;aspect-ratio:760/360}
+  .g-axis{display:flex;justify-content:space-between;margin-top:8px;padding:0 2px;
+    font-size:10.5px;color:var(--t3);font-variant-numeric:tabular-nums;letter-spacing:.4px}
+  .g-tip{position:absolute;pointer-events:none;opacity:0;transition:opacity .14s;
+    transform:translate(-50%,-100%);background:rgba(0,0,0,0.93);
+    border:1px solid var(--border-2);border-radius:10px;padding:9px 12px;
+    font-size:11.5px;color:#fff;white-space:nowrap;z-index:6;
+    box-shadow:0 8px 30px rgba(0,0,0,0.55)}
+  .g-tip .gm{color:var(--t3);font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+  .g-tip .gr{display:flex;align-items:center;gap:7px;font-variant-numeric:tabular-nums;margin:2px 0}
+  .g-tip .gr i{width:8px;height:8px;border-radius:2px;display:inline-block}
+
+  .g-leg{display:flex;gap:22px;flex-wrap:wrap;margin-top:18px;font-size:11.5px;color:var(--t3);
+    align-items:center}
+  .g-leg span{display:flex;align-items:center;gap:7px}
+  .g-leg .dot.org{width:14px;height:0;border-top:2px dashed var(--neutral);border-radius:0;background:none}
+  .g-leg .dot.pro{width:14px;height:3px;border-radius:2px;
+    background:linear-gradient(90deg,var(--kelly),var(--user))}
+  .g-leg .g-note{margin-left:auto;color:var(--t3);font-style:italic}
+
+  /* ---------- closing / sign ---------- */
+  .closing{background:linear-gradient(180deg,rgba(139,92,246,0.05),transparent);
+    border:1px solid rgba(139,92,246,0.16);border-radius:22px;padding:34px 40px;text-align:center}
+  .closing p{color:var(--t2);font-size:17px;margin:0}
+  footer{border-top:1px solid var(--border);margin-top:60px;padding:34px 0 8px;text-align:center}
+  footer p{font-size:12px;color:var(--t3);margin:0}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:760px){
+    main{padding:0 18px 90px}.nav-in{padding:11px 16px}
+    .nav-links{display:none}.kpis{grid-template-columns:repeat(2,1fr)}
+    .note-card{padding:26px 22px}.explorer,.growth{padding:22px}
+    .strip{grid-template-columns:repeat(6,1fr)}
+    .g-delta span{font-size:36px}
+    section{padding:46px 0}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+<div class="ambient"><i></i><i></i></div>
+<div class="grid"></div>
+<div class="grain"></div>
+
+<nav>
+  <div class="nav-in">
+    <div class="brand"><b>Teddy&nbsp;Buddies</b> <span class="x">×</span> <i>AIBC&nbsp;Foundry</i></div>
+    <div class="nav-links">
+      <a href="#note">Note</a>
+      <a href="#summary">Summary</a>
+      <a href="#background">Background</a>
+      <a href="#scope">Scope</a>
+      <a href="#terms">Terms</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#growth">Growth</a>
+      <a href="#term">Term</a>
+      <a href="#ip">IP</a>
+      <a href="#payment">Payment</a>
+    </div>
+  </div>
+  <div class="progress" id="progress"></div>
+</nav>
+
+<main>
+  <header class="hero">
+    <div class="eyebrow">A Services Proposal</div>
+    <h1 class="title"><b>Teddy&nbsp;Buddies</b><span class="x">×</span><i>AIBC&nbsp;Foundry</i></h1>
+    <p class="sub">Formalising the full scope under a single, transparent retainer.</p>
+    <a class="scrollcue" href="#note" aria-label="Scroll to the personal note">
+      <span class="lbl">A personal note first</span>
+      <span class="rail"><span class="bead"></span></span>
+    </a>
+  </header>
+
+  <!-- ============ PERSONAL NOTE ============ -->
+  <section id="note" class="wrap reveal">
+    <div class="kicker">Before the numbers</div>
+    <h2>A Personal Note Before the Numbers</h2>
+    <div class="note-card" style="margin-top:24px">
+      <p>This proposal is unusual to write, and I want to acknowledge that openly before we get into the commercial detail.</p>
+      <p>Teddy Buddies is family. I hold a small shareholding and that does not change the fact that the school's growth is, for me, a personal matter before it is a professional one. None of that goes away when we sign a services agreement.</p>
+      <p>What is changing is that the scope of what I am doing for Teddy Buddies has expanded well beyond the original ₹10,000/month arrangement that covered social media and digital marketing oversight. The AI department buildout, the operational involvement, the franchising and SOP groundwork, and the strategic advisory work coordinated through daily standup calls, along with social media &amp; marketing oversight — including growing the board members' personal presence on Instagram and LinkedIn — belong inside a properly structured engagement between Teddy Buddies and my consultancy, AIBC Foundry.</p>
+      <p>The pricing in this proposal is built honestly: a market-rate list price that I would quote any external SME for the same scope, and a transparent family/founder discount that reduces the net cost to Teddy Buddies. I have chosen to write it this way because it is fair to both sides and because it leaves the family relationship and the business relationship cleanly separable.</p>
+      <p>If anything in here feels off — too much, too little, wrong structure — I am all ears to hear it and rework it than have unspoken concerns sit in the background.</p>
+    </div>
+  </section>
+
+  <!-- ============ EXECUTIVE SUMMARY ============ -->
+  <section id="summary" class="wrap reveal">
+    <div class="kicker">01 — Executive Summary</div>
+    <h2>The engagement at a glance</h2>
+    <div class="kpis">
+      <div class="kpi k1"><div class="lab">Standard list price</div>
+        <div class="val" data-count="110000" data-prefix="₹">₹0<small> / mo</small></div></div>
+      <div class="kpi k2"><div class="lab">Family / founder discount</div>
+        <div class="val">– ₹50,000<small> / mo</small></div></div>
+      <div class="kpi k3"><div class="lab">Net retainer · flat</div>
+        <div class="val" data-count="60000" data-prefix="₹">₹0<small> / mo</small></div></div>
+      <div class="kpi k4"><div class="lab">Year 1 total</div>
+        <div class="val" data-count="720000" data-prefix="₹">₹0<small> · ≈3.2% rev</small></div></div>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>Item</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>AIBC Foundry standard list price</td><td class="num">₹1,10,000 / month</td></tr>
+        <tr><td>Family / founder discount</td><td class="num">– ₹50,000 / month</td></tr>
+        <tr><td>Net retainer to TB <span class="tag flat">Flat · every month</span></td><td class="num">₹60,000 / month</td></tr>
+        <tr><td>AI tooling absorbed by AIBC Foundry</td><td class="num">~₹21,000 / month value</td></tr>
+        <tr><td>Term</td><td>Open-ended, 60-day notice either side</td></tr>
+        <tr><td>Review cadence</td><td>Quarterly formal, monthly informal</td></tr>
+        <tr><td>Annual escalation</td><td>10% / year, or renegotiated at review</td></tr>
+        <tr><td>Year 1 total</td><td class="num">₹7,20,000 (≈ 3.2% of TB annual revenue)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ BACKGROUND ============ -->
+  <section id="background" class="wrap reveal">
+    <div class="kicker">02 — Background and Context</div>
+    <h2>Where Teddy Buddies stands</h2>
+    <p>Teddy Buddies Schools currently has ~200-students. The business is positioned for growth — including franchising and multi-unit expansion — and is in the early stages of operationalising an internal AI department to support administration, parent communications, content generation, and the scale-up of future units.</p>
+    <p>My involvement to date has spanned three overlapping streams:</p>
+    <ol>
+      <li><strong>Technology / AI</strong> — design and rollout of the Teddy Buddies AI Department, build on the OpenClaw + FastAPI + Claude API architecture that AIBC Foundry is productising for Indian SMEs. Internal workflow automations (e.g. daily analytics reports to manage marketing spends actively) and an SOP agent (as recommended by the consultants) are in the pipeline.</li>
+      <li><strong>Business Development</strong> — Content team development for growth and involvement in marketing team, expansion, and franchising readiness; growing the board members' personal presence on Instagram and LinkedIn.</li>
+      <li><strong>Embedded Operations</strong> — daily 3 PM standup, day-to-day operational input, marketing and social media oversight, and ad-hoc decision support.</li>
+    </ol>
+    <p>This proposal formalises the full scope under a single retainer.</p>
+  </section>
+
+  <!-- ============ SCOPE ============ -->
+  <section id="scope" class="wrap reveal">
+    <div class="kicker">03 — Scope of Engagement</div>
+    <h2>What the retainer covers</h2>
+    <p>Rather than carve scope into rigid line items — which does not fit either the spirit of a family business or the realities of running an SME — AIBC Foundry will provide an integrated retainer covering operational, technical, and strategic involvement at Teddy Buddies Schools. In practice this includes:</p>
+
+    <h4>Technology &amp; AI Department</h4>
+    <ul>
+      <li>Architecture, deployment, and ongoing operation of the Teddy Buddies AI infrastructure (OpenClaw messaging layer, FastAPI application logic, Postgres data layer, Claude API reasoning layer, hosted on a dedicated VPS).</li>
+      <li>AI-driven parent communications on WhatsApp, including admissions enquiries, schedule queries, fee reminders, and routine information requests.</li>
+      <li>Internal automation for school administration (records, schedules, reports).</li>
+      <li>Content generation pipelines for marketing, social media, and curriculum-adjacent material.</li>
+      <li>Staff orientation and training (in a slow and easy manner) so the team can operate the AI department day-to-day.</li>
+    </ul>
+
+    <h4>Business Development</h4>
+    <ul>
+      <li>SOP development for the core operating processes of a Teddy Buddies unit, structured for replication.</li>
+      <li>Franchise-readiness package: process inventory, documentation, validation by an unfamiliar tester, and any other wide scope requirements as and when they arise.</li>
+      <li>Growth and expansion advisory at founder level.</li>
+    </ul>
+
+    <h4>Embedded Operations</h4>
+    <ul>
+      <li>Daily 3 PM standup attendance and ongoing operational involvement.</li>
+      <li>Marketing and digital oversight, including growing the board members' personal presence on Instagram and LinkedIn (continuation and extension of existing scope).</li>
+      <li>Ad-hoc strategic input on decisions as they arise.</li>
+    </ul>
+  </section>
+
+  <!-- ============ COMMERCIAL TERMS ============ -->
+  <section id="terms" class="wrap reveal">
+    <div class="kicker">04 — Commercial Terms</div>
+    <h2>How the pricing is built</h2>
+
+    <h3>4.1 &nbsp;Pricing Logic</h3>
+    <p>The AIBC Foundry standard rate for this scope of work — full-stack AI department buildout combined with strategic advisory, board-level digital-presence growth, and embedded operational involvement — is <strong>₹1,10,000 per month</strong>. This rate is benchmarked against similarly comparable consulting and AI implementation solopreneurs in Bangalore and Trivandrum, where:</p>
+    <ul>
+      <li>AI department buildouts (architecture + deployment + integration + training) are typically quoted at ₹2.5–5 lakh as one-time projects.</li>
+      <li>Ongoing AI operations + strategic advisory + embedded operational involvement, bundled, typically starts between ₹90,000 and ₹1,40,000 per month for SMEs of Teddy Buddies' size and revenue profile.</li>
+    </ul>
+
+    <h3>4.2 &nbsp;Family / Founder Discount</h3>
+    <p>This is recorded explicitly so that our service terms remain clean and transparent, and so that the standard AIBC Foundry rate is not implicitly devalued (w.r.t. future clients). It is a single flat retainer — no phase step-ups, no build-vs-operate split.</p>
+    <table class="tbl">
+      <thead><tr><th>Component</th><th>Duration</th><th>List price</th><th>Discount</th><th>Net retainer to TB</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag flat">Flat retainer</span></td><td>Every month</td><td class="num">₹1,10,000</td><td class="num">–₹50,000</td><td class="num">₹60,000 / month</td></tr>
+      </tbody>
+    </table>
+    <p>Earlier drafts split this into a heavier "Build" phase and a lighter "Operate" phase. We have deliberately collapsed that into one flat ₹60,000/month figure: the buildout-heavy early months (AI department deployment, SOP drafting, franchise package preparation) are carried at the same rate as the steady-state work — a simplification and an act of goodwill that keeps the engagement easy to budget and easy to read.</p>
+  </section>
+
+  <!-- ============ INTERACTIVE PRICING EXPLORER ============ -->
+  <section id="pricing" class="wrap reveal">
+    <div class="kicker">Explore — the same numbers, made tangible</div>
+    <h2>Pricing Explorer</h2>
+    <p class="lead">One flat retainer, every month. Hover any term to read why it is what it is — and scrub the year to see exactly where ₹7,20,000 comes from.</p>
+
+    <div class="explorer" id="explorer">
+      <div class="ex-head">
+        <div>
+          <div class="t">List price → discount → net retainer</div>
+          <div class="s" id="exPhaseSub">One flat retainer — every month, no phase step-ups</div>
+        </div>
+        <div class="flat-pill"><i></i> Flat · ₹60,000 / mo</div>
+      </div>
+
+      <div class="equation">
+        <div class="term list" data-k="list">
+          <div class="tl">List price</div>
+          <div class="tv" id="vList">₹1,10,000</div>
+        </div>
+        <div class="op">−</div>
+        <div class="term disc" data-k="disc">
+          <div class="tl">Family / founder discount</div>
+          <div class="tv" id="vDisc">₹50,000</div>
+        </div>
+        <div class="op">=</div>
+        <div class="term net" id="netTerm" data-k="net">
+          <div class="tl">Net retainer to TB</div>
+          <div class="tv" id="vNet">₹60,000</div>
+        </div>
+      </div>
+
+      <div class="ex-explain idle" id="exExplain">
+        <div class="ed">Hover the list price, the discount, or the net retainer to see the reasoning — in the proposal's own words.</div>
+      </div>
+
+      <div class="year">
+        <div class="yhead">
+          <div class="yl">Year 1 — month by month</div>
+          <div class="yt">Total <b id="yearTotal">₹7,20,000</b> &nbsp;<span style="color:var(--t3)">≈ 3.2% of TB annual revenue</span></div>
+        </div>
+        <div class="strip" id="strip"></div>
+        <div class="strip-leg">
+          <span><i class="dot b"></i> Flat retainer — ₹60,000 × 12 = ₹7,20,000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4.3 -->
+    <h3>4.3 &nbsp;What the Retainer Includes Beyond Time</h3>
+    <p>The retainer also absorbs the following AI infrastructure costs, which AIBC Foundry carries on behalf of Teddy Buddies:</p>
+    <div class="absorb" style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px 28px;margin:22px 0">
+      <div class="abar" id="abar" style="display:flex;height:18px;border-radius:7px;overflow:hidden;margin:6px 0 20px;border:1px solid var(--border)">
+        <i class="s0" data-i="0" style="display:block;height:100%;transition:.22s;opacity:.85;background:var(--kelly);flex:13000"></i>
+        <i class="s1" data-i="1" style="display:block;height:100%;transition:.22s;opacity:.85;background:var(--user);flex:3000"></i>
+        <i class="s2" data-i="2" style="display:block;height:100%;transition:.22s;opacity:.85;background:var(--win);flex:5000"></i>
+      </div>
+      <div class="arow" data-i="0" onmouseenter="hiAbsorb(0)" onmouseleave="hiAbsorb(-1)" style="display:flex;justify-content:space-between;align-items:center;padding:11px 12px;border-radius:10px;transition:.16s;font-size:14.5px;color:var(--t2)">
+        <span class="an" style="display:flex;align-items:center;gap:11px"><i class="sw" style="width:10px;height:10px;border-radius:3px;background:var(--kelly)"></i>Anthropic Claude Max subscription</span>
+        <span class="av" style="font-variant-numeric:tabular-nums;font-family:var(--mono);color:var(--t1)">₹13,000</span></div>
+      <div class="arow" data-i="1" onmouseenter="hiAbsorb(1)" onmouseleave="hiAbsorb(-1)" style="display:flex;justify-content:space-between;align-items:center;padding:11px 12px;border-radius:10px;transition:.16s;font-size:14.5px;color:var(--t2)">
+        <span class="an" style="display:flex;align-items:center;gap:11px"><i class="sw" style="width:10px;height:10px;border-radius:3px;background:var(--user)"></i>ChatGPT Plus / Pro</span>
+        <span class="av" style="font-variant-numeric:tabular-nums;font-family:var(--mono);color:var(--t1)">₹3,000</span></div>
+      <div class="arow" data-i="2" onmouseenter="hiAbsorb(2)" onmouseleave="hiAbsorb(-1)" style="display:flex;justify-content:space-between;align-items:center;padding:11px 12px;border-radius:10px;transition:.16s;font-size:14.5px;color:var(--t2)">
+        <span class="an" style="display:flex;align-items:center;gap:11px"><i class="sw" style="width:10px;height:10px;border-radius:3px;background:var(--win)"></i>Other AI tools and subscriptions</span>
+        <span class="av" style="font-variant-numeric:tabular-nums;font-family:var(--mono);color:var(--t1)">₹5,000</span></div>
+      <div class="arow tot" style="display:flex;justify-content:space-between;align-items:center;padding:16px 12px 11px;border-top:1px solid var(--border);margin-top:8px;font-weight:600">
+        <span class="an" style="color:var(--t1)">Total absorbed</span>
+        <span class="av" style="font-variant-numeric:tabular-nums;font-family:var(--mono);color:var(--kelly);font-size:17px">~₹21,000 / month</span></div>
+    </div>
+    <p>These tools are shared across AIBC Foundry's portfolio, so Teddy Buddies is not paying full freight for any single subscription — but the capability they enable is fully available to TB's work. Additionally, all new AI upgrades can be tested by the AI department from these subscriptions before actually purchasing them for members of staff or in bigger numbers.</p>
+
+    <!-- 4.4 -->
+    <h3>4.4 &nbsp;Out of Scope Work</h3>
+    <p>The retainer is intentionally broad and trust-based. There is no hourly billing and no scope-creep enforcement. We are family and we are in this together. Anything I can help with for Teddy Buddies to grow will be taken into consideration, analysed, discussed, built and enforced as and when the need arises.</p>
+
+    <!-- 4.5 -->
+    <h3>4.5 &nbsp;Review and Escalation</h3>
+    <ul>
+      <li><strong>Quarterly formal review:</strong> Both parties revisit scope and share feedback. Either side can propose changes.</li>
+      <li><strong>Monthly informal check-in:</strong> Short conversation to flag anything that feels miscalibrated before it festers. Goal checks and alignment discussions.</li>
+      <li><strong>Annual escalation:</strong> the list price escalates 10% per year (or is renegotiated at review); the family/founder discount is revisited in good faith so the net retainer stays fair to both sides.</li>
+    </ul>
+  </section>
+
+  <!-- ============ PROJECTED GROWTH ============ -->
+  <section id="growth" class="wrap reveal">
+    <div class="kicker">Projected — what the engagement compounds into</div>
+    <h2>The Growth This Unlocks</h2>
+    <p class="lead">The retainer is the input. This is the output it is built to produce — the compounding effect of the AI department, franchise-readiness, marketing oversight, and a deliberately grown board presence on Instagram &amp; LinkedIn, set against an organic baseline. Scroll to draw the curve.</p>
+
+    <div class="growth" id="growthCard">
+      <div class="g-head">
+        <div>
+          <div class="t">Organic baseline vs. with AIBC Foundry</div>
+          <div class="s" id="gSub">Students enrolled · 24-month horizon</div>
+        </div>
+        <div class="g-switch" role="tablist" id="gSwitch">
+          <button class="on" data-m="students">Students</button>
+          <button data-m="inquiries">Admissions enquiries</button>
+          <button data-m="reach">Board + school reach</button>
+          <button data-m="units">Operating units</button>
+        </div>
+      </div>
+
+      <div class="g-stat">
+        <div class="g-delta"><span id="gMult">1.0×</span><i>by Month&nbsp;24</i></div>
+        <div class="g-from">from <b id="gFrom">—</b> on today's trajectory <span>→</span> <b id="gTo" class="hi">—</b> with the engagement</div>
+      </div>
+
+      <div class="g-plot">
+        <svg id="gSvg" viewBox="0 0 760 360" preserveAspectRatio="none" aria-label="Projected growth chart"></svg>
+        <div class="g-tip" id="gTip"></div>
+      </div>
+      <div class="g-axis" id="gAxis"></div>
+
+      <div class="g-leg">
+        <span><i class="dot org"></i> Organic baseline</span>
+        <span><i class="dot pro"></i> With AIBC Foundry</span>
+        <span class="g-note">Illustrative, directional — modelled, not guaranteed.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TERM ============ -->
+  <section id="term" class="wrap reveal">
+    <div class="kicker">05 — Term and Termination</div>
+    <h2>Term and Termination</h2>
+    <ul>
+      <li><strong>Start date:</strong> 1 May 2026.</li>
+      <li><strong>Term:</strong> Open-ended engagement.</li>
+      <li><strong>Notice period:</strong> 60 days from either side, in writing.</li>
+    </ul>
+  </section>
+
+  <!-- ============ IP ============ -->
+  <section id="ip" class="wrap reveal">
+    <div class="kicker">06 — Intellectual Property</div>
+    <h2>Intellectual Property</h2>
+    <ul>
+      <li><strong>AIBC Foundry retains ownership</strong> of: the OpenClaw deployment template, the FastAPI + Postgres + Claude API agent architecture, and all reusable consulting artefacts. Teddy Buddies receives a perpetual, royalty-free licence to use these for its own operations.</li>
+      <li><strong>Teddy Buddies retains ownership</strong> of: all TB-specific configurations, content, brand assets, student/parent data, franchise documentation customised for TB, and any IP developed specifically for TB within and outside the retainer scope.</li>
+      <li><strong>Data handling:</strong> All parent, child, and staff data remains the property of Teddy Buddies. AIBC Foundry will not use TB data for training, demonstrations, or external case studies without prior written consent from TB.</li>
+    </ul>
+  </section>
+
+  <!-- ============ PAYMENT ============ -->
+  <section id="payment" class="wrap reveal">
+    <div class="kicker">07 — Payment Terms</div>
+    <h2>Payment Terms</h2>
+    <ul>
+      <li><strong>Invoicing:</strong> Monthly, in advance, by the 6th of each calendar month.</li>
+      <li><strong>Mode:</strong> Bank transfer (to Jachin Jose Victor).</li>
+    </ul>
+  </section>
+
+  <!-- ============ CLOSING ============ -->
+  <section class="wrap reveal" style="padding-top:30px">
+    <div class="closing">
+      <p>If any term needs adjustment — pricing, scope, structure, or anything else — let's talk through it before finalising. The numbers and structure here are AIBC Foundry's recommendation, not a take-it-or-leave-it.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Teddy Buddies Schools &nbsp;·&nbsp; AIBC Foundry &nbsp;·&nbsp; A services proposal, written to be questioned.</p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* ---- Indian-format rupee ---- */
+  function inr(n){
+    n = Math.round(n);
+    var s = String(Math.abs(n));
+    var out;
+    if (s.length <= 3){ out = s; }
+    else {
+      var last3 = s.slice(-3), rest = s.slice(0,-3);
+      rest = rest.replace(/\B(?=(\d{2})+(?!\d))/g, ',');
+      out = rest + ',' + last3;
+    }
+    return (n<0?'– ₹':'₹') + out;
+  }
+
+  /* ---- count-up KPIs on scroll (preserve the <small> unit markup) ---- */
+  var counters = [].slice.call(document.querySelectorAll('[data-count]'));
+  counters.forEach(function(c){
+    c._small = c.querySelector('small') ? c.querySelector('small').outerHTML : '';
+  });
+  function runCount(el){
+    if (el._ran) return; el._ran = true;
+    var to = parseInt(el.getAttribute('data-count'),10), small = el._small;
+    if (reduce){ el.innerHTML = inr(to) + small; return; }
+    var t0 = performance.now();
+    (function tick(now){
+      var p = Math.min(1,(now-t0)/780), e = 1 - Math.pow(1-p,3);
+      el.innerHTML = inr(to*e) + small;
+      if (p<1) requestAnimationFrame(tick); else el.innerHTML = inr(to) + small;
+    })(t0);
+  }
+  if ('IntersectionObserver' in window && !reduce){
+    var ioC = new IntersectionObserver(function(ents){
+      ents.forEach(function(en){ if (en.isIntersecting) runCount(en.target); });
+    },{threshold:.45});
+    counters.forEach(function(c){ ioC.observe(c); });
+  } else {
+    counters.forEach(runCount);
+  }
+
+  /* ---- Pricing Explorer (single flat retainer) ---- */
+  var FLAT = { list:110000, disc:50000, net:60000 };
+  var yearTotalVal = 720000;
+
+  /* term hover explanations — proposal's own words */
+  var EX = {
+    list:{ c:'#FFFFFF', t:'List price — the market rate',
+      d:'“The AIBC Foundry standard rate for this scope of work — full-stack AI department buildout combined with strategic advisory, board-level digital-presence growth, and embedded operational involvement — is ₹1,10,000 per month.”' },
+    disc:{ c:'#10B981', t:'Family / founder discount',
+      d:'“A transparent family/founder discount that reduces the net cost to Teddy Buddies… recorded explicitly so that our service terms remain clean and transparent, and so that the standard AIBC Foundry rate is not implicitly devalued.”' },
+    net:{ c:'#F59E0B', t:'Net retainer — one flat figure',
+      d:'“One flat ₹60,000/month figure: the buildout-heavy early months are carried at the same rate as the steady-state work — a simplification and an act of goodwill that keeps the engagement easy to budget and easy to read.”' }
+  };
+  var exBox=document.getElementById('exExplain');
+  function showEx(key){
+    var info = EX[key];
+    if(!info){ resetEx(); return; }
+    exBox.classList.remove('idle');
+    exBox.innerHTML = '<div class="et" style="color:'+info.c+'">'+info.t+'</div><div class="ed">'+info.d+'</div>';
+  }
+  function resetEx(){
+    exBox.classList.add('idle');
+    exBox.innerHTML = '<div class="ed">Hover the list price, the discount, or the net retainer to see the reasoning — in the proposal’s own words.</div>';
+  }
+  [].slice.call(document.querySelectorAll('.term')).forEach(function(t){
+    t.addEventListener('mouseenter',function(){ showEx(t.getAttribute('data-k')); });
+    t.addEventListener('mouseleave', resetEx);
+  });
+
+  /* Year-1 strip — 12 months from start date 1 May 2026, flat ₹60,000 */
+  var months = ['May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr'];
+  var yrs    = ['’26','’26','’26','’26','’26','’26','’26','’26','’27','’27','’27','’27'];
+  var strip=document.getElementById('strip'), yearTotalEl=document.getElementById('yearTotal');
+  (function buildStrip(){
+    strip.innerHTML='';
+    for(var i=0;i<12;i++){
+      var cell=document.createElement('div');
+      cell.className='mon';
+      cell.innerHTML = months[i] +
+        '<div class="mtip">'+months[i]+' '+yrs[i]+' · Flat · <b>'+inr(60000)+'</b></div>';
+      strip.appendChild(cell);
+    }
+  })();
+  // animate the ₹7,20,000 total when it scrolls into view
+  if ('IntersectionObserver' in window && !reduce){
+    var ioT = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting && !e.target._t){
+          e.target._t=true;
+          var t0=performance.now();
+          (function f(now){
+            var p=Math.min(1,(now-t0)/900), k=1-Math.pow(1-p,3);
+            yearTotalEl.textContent = inr(yearTotalVal*k);
+            if(p<1) requestAnimationFrame(f); else yearTotalEl.textContent='₹7,20,000';
+          })(t0);
+        }
+      });
+    },{threshold:.5});
+    ioT.observe(yearTotalEl);
+  }
+
+  /* cost-absorption bar highlight */
+  window.hiAbsorb = function(idx){
+    var segs=document.querySelectorAll('#abar i');
+    for(var i=0;i<segs.length;i++){
+      segs[i].style.opacity = (idx===-1)?'0.85':(parseInt(segs[i].getAttribute('data-i'),10)===idx?'1':'0.28');
+    }
+  };
+
+  /* ===================================================================
+     PROJECTED GROWTH — scroll-drawn, switchable line chart
+     Illustrative, directional projections. Months: 0,3,6,9,12,15,18,21,24
+  =================================================================== */
+  var GMONTHS = [0,3,6,9,12,15,18,21,24];
+  var METRICS = {
+    students:{
+      lab:'Students enrolled', sub:'Students enrolled · 24-month horizon',
+      org:[200,205,210,217,224,231,239,249,260],
+      pro:[200,224,255,295,345,400,448,486,520],
+      fmt:function(v){ return Math.round(v).toLocaleString('en-IN'); }, unit:'students'
+    },
+    inquiries:{
+      lab:'Admissions enquiries / month', sub:'Admissions enquiries per month · 24-month horizon',
+      org:[25,26,27,28,30,31,33,34,35],
+      pro:[25,42,62,84,104,120,132,142,150],
+      fmt:function(v){ return Math.round(v)+' /mo'; }, unit:'enquiries / mo'
+    },
+    reach:{
+      lab:'Board + school digital reach', sub:'Combined Instagram + LinkedIn audience · 24-month horizon',
+      org:[5,5.4,5.9,6.3,6.8,7.4,7.9,8.4,9],
+      pro:[5,11,22,38,56,71,83,93,100],
+      fmt:function(v){ return (Math.round(v*10)/10)+'K'; }, unit:'K followers'
+    },
+    units:{
+      lab:'Operating units', sub:'Operating Teddy Buddies units · 24-month horizon',
+      org:[1,1,1,1,1,1,2,2,2],
+      pro:[1,1,2,2,3,3,4,4,5],
+      fmt:function(v){ return Math.round(v)+(Math.round(v)===1?' unit':' units'); }, unit:'units'
+    }
+  };
+  var MILES = [
+    {i:1,label:'AI Department live'},
+    {i:2,label:'Board IG + LinkedIn scaling'},
+    {i:4,label:'Unit 2 franchise-ready'},
+    {i:8,label:'Multi-unit network'}
+  ];
+  var SVGNS='http://www.w3.org/2000/svg';
+  var svg=document.getElementById('gSvg'),
+      gTip=document.getElementById('gTip'),
+      gSub=document.getElementById('gSub'),
+      gMult=document.getElementById('gMult'),
+      gFrom=document.getElementById('gFrom'),
+      gTo=document.getElementById('gTo'),
+      gAxis=document.getElementById('gAxis'),
+      gCard=document.getElementById('growthCard');
+  var VW=760, VH=360, PADL=14, PADR=20, PADT=22, PADB=34;
+  var plotW=VW-PADL-PADR, plotH=VH-PADT-PADB;
+  var curMetric='students', gP=0, proLen=1;
+  var elArea, elPro, elOrg, proPts=[], orgPts=[], mileEls=[], hot;
+
+  function xAt(i){ return PADL + (i/(GMONTHS.length-1))*plotW; }
+  function smoothPath(pts){
+    if(pts.length<2) return '';
+    var d='M'+pts[0][0]+','+pts[0][1];
+    for(var i=0;i<pts.length-1;i++){
+      var p0=pts[i-1]||pts[i], p1=pts[i], p2=pts[i+1], p3=pts[i+2]||p2;
+      var c1x=p1[0]+(p2[0]-p0[0])/6, c1y=p1[1]+(p2[1]-p0[1])/6;
+      var c2x=p2[0]-(p3[0]-p1[0])/6, c2y=p2[1]-(p3[1]-p1[1])/6;
+      d+='C'+c1x+','+c1y+' '+c2x+','+c2y+' '+p2[0]+','+p2[1];
+    }
+    return d;
+  }
+  function el(tag,attrs){
+    var e=document.createElementNS(SVGNS,tag);
+    for(var k in attrs) e.setAttribute(k,attrs[k]);
+    return e;
+  }
+
+  function render(metric){
+    curMetric=metric;
+    var M=METRICS[metric];
+    gSub.textContent=M.sub;
+    var ymax=Math.max.apply(null,M.pro)*1.10, ymin=0;
+    function yAt(v){ return PADT + plotH - ((v-ymin)/(ymax-ymin))*plotH; }
+    proPts=[]; orgPts=[];
+    for(var i=0;i<GMONTHS.length;i++){
+      proPts.push([xAt(i),yAt(M.pro[i])]);
+      orgPts.push([xAt(i),yAt(M.org[i])]);
+    }
+    svg.innerHTML='';
+    // defs: gradients + glow
+    var defs=el('defs',{});
+    defs.innerHTML=
+      '<linearGradient id="proStroke" x1="0" y1="0" x2="1" y2="0">'+
+      '<stop offset="0" stop-color="#F59E0B"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>'+
+      '<linearGradient id="proFill" x1="0" y1="0" x2="0" y2="1">'+
+      '<stop offset="0" stop-color="#8B5CF6" stop-opacity="0.34"/>'+
+      '<stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/></linearGradient>'+
+      '<filter id="glow" x="-20%" y="-20%" width="140%" height="140%">'+
+      '<feGaussianBlur stdDeviation="3.4" result="b"/>'+
+      '<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+    svg.appendChild(defs);
+    // horizontal gridlines
+    for(var g=0;g<=4;g++){
+      var gy=PADT+ (plotH/4)*g;
+      svg.appendChild(el('line',{x1:PADL,y1:gy,x2:VW-PADR,y2:gy,
+        stroke:'rgba(255,255,255,0.06)','stroke-width':1,
+        'stroke-dasharray': g===4?'0':'2 5'}));
+    }
+    // vertical guides at milestones
+    MILES.forEach(function(m){
+      svg.appendChild(el('line',{x1:xAt(m.i),y1:PADT,x2:xAt(m.i),y2:PADT+plotH,
+        stroke:'rgba(139,92,246,0.16)','stroke-width':1,'stroke-dasharray':'2 6'}));
+    });
+    // area under projected
+    var areaD=smoothPath(proPts)+' L'+proPts[proPts.length-1][0]+','+(PADT+plotH)+
+              ' L'+proPts[0][0]+','+(PADT+plotH)+' Z';
+    elArea=el('path',{d:areaD,fill:'url(#proFill)',opacity:0});
+    svg.appendChild(elArea);
+    // organic (dashed, muted)
+    elOrg=el('path',{d:smoothPath(orgPts),fill:'none',
+      stroke:'rgba(255,255,255,0.32)','stroke-width':2,
+      'stroke-dasharray':'5 6','stroke-linecap':'round',
+      'vector-effect':'non-scaling-stroke'});
+    svg.appendChild(elOrg);
+    // projected (gradient, glow, scroll-drawn)
+    elPro=el('path',{d:smoothPath(proPts),fill:'none',
+      stroke:'url(#proStroke)','stroke-width':3.4,
+      'stroke-linecap':'round','stroke-linejoin':'round',
+      filter:'url(#glow)','vector-effect':'non-scaling-stroke'});
+    svg.appendChild(elPro);
+    proLen=elPro.getTotalLength();
+    elPro.style.strokeDasharray=proLen;
+    var orgLen=elOrg.getTotalLength();
+    elOrg.style.strokeDasharray=orgLen;
+    elOrg._len=orgLen;
+    // milestone markers
+    mileEls=[];
+    MILES.forEach(function(m){
+      var px=proPts[m.i][0], py=proPts[m.i][1];
+      var grp=el('g',{opacity:0});
+      grp.appendChild(el('circle',{cx:px,cy:py,r:8,fill:'none',
+        stroke:'rgba(139,92,246,0.45)','stroke-width':1.5}));
+      grp.appendChild(el('circle',{cx:px,cy:py,r:3.6,fill:'#8B5CF6'}));
+      var anchorRight = px > VW*0.62;
+      var lx = anchorRight ? px-10 : px+10;
+      var tx=el('text',{x:lx,y:py-14,fill:'rgba(255,255,255,0.7)',
+        'font-size':'11','font-family':'-apple-system,Segoe UI,sans-serif',
+        'font-weight':'600','text-anchor':anchorRight?'end':'start'});
+      tx.textContent=m.label;
+      grp.appendChild(tx);
+      var mx=el('text',{x:lx,y:py-29,fill:'rgba(255,255,255,0.34)',
+        'font-size':'9.5','font-family':'-apple-system,Segoe UI,sans-serif',
+        'letter-spacing':'1','text-anchor':anchorRight?'end':'start'});
+      mx.textContent='MONTH '+GMONTHS[m.i];
+      grp.appendChild(mx);
+      svg.appendChild(grp);
+      mileEls.push({g:grp,frac:m.i/(GMONTHS.length-1)});
+    });
+    // endpoint dot
+    var endP=proPts[proPts.length-1];
+    var endDot=el('circle',{cx:endP[0],cy:endP[1],r:5,fill:'#fff',
+      stroke:'#8B5CF6','stroke-width':2});
+    endDot.id='gEnd'; endDot.style.opacity=0;
+    svg.appendChild(endDot);
+    // hover hotspot
+    hot=el('rect',{x:0,y:0,width:VW,height:VH,fill:'transparent'});
+    svg.appendChild(hot);
+    // x-axis labels (crisp HTML)
+    gAxis.innerHTML='';
+    [0,2,4,6,8].forEach(function(i){
+      var s=document.createElement('span');
+      s.textContent='Mo '+GMONTHS[i];
+      gAxis.appendChild(s);
+    });
+    apply();           // re-apply current scroll progress
+    bindHover(M);
+  }
+
+  function apply(){
+    var pe = 1 - Math.pow(1-gP,3);            // ease-out
+    if(elPro) elPro.style.strokeDashoffset = proLen*(1-pe);
+    if(elOrg) elOrg.style.strokeDashoffset = elOrg._len*(1-Math.min(1,pe*1.15));
+    if(elArea) elArea.setAttribute('opacity', (pe*0.9).toFixed(3));
+    var endDot=document.getElementById('gEnd');
+    if(endDot) endDot.style.opacity = pe>0.985?1:0;
+    mileEls.forEach(function(m){
+      m.g.setAttribute('opacity', pe >= m.frac ? 1 : 0);
+    });
+    // headline numbers scrub with scroll
+    var M=METRICS[curMetric];
+    var from=M.org[M.org.length-1], to=M.pro[M.pro.length-1];
+    var cur = from + (to-from)*pe;
+    gFrom.textContent = M.fmt(from);
+    gTo.textContent   = M.fmt(cur);
+    gMult.textContent = (Math.round((cur/from)*10)/10).toFixed(1)+'×';
+  }
+
+  function bindHover(M){
+    function move(ev){
+      var r=svg.getBoundingClientRect();
+      var cx=(ev.touches?ev.touches[0].clientX:ev.clientX);
+      var vx=((cx-r.left)/r.width)*VW;
+      // nearest index
+      var bi=0,bd=1e9;
+      for(var i=0;i<GMONTHS.length;i++){
+        var d=Math.abs(xAt(i)-vx); if(d<bd){bd=d;bi=i;}
+      }
+      var px=proPts[bi][0]/VW*r.width;
+      var py=Math.min(proPts[bi][1],orgPts[bi][1])/VH*r.height;
+      gTip.style.left=px+'px';
+      gTip.style.top=(py-12)+'px';
+      gTip.style.opacity=1;
+      gTip.innerHTML='<div class="gm">Month '+GMONTHS[bi]+'</div>'+
+        '<div class="gr"><i style="background:linear-gradient(90deg,#F59E0B,#8B5CF6)"></i>With AIBC&nbsp; <b>'+M.fmt(M.pro[bi])+'</b></div>'+
+        '<div class="gr"><i style="background:#6B7280"></i>Organic&nbsp; <b>'+M.fmt(M.org[bi])+'</b></div>';
+    }
+    function leave(){ gTip.style.opacity=0; }
+    hot.addEventListener('mousemove',move);
+    hot.addEventListener('mouseleave',leave);
+    hot.addEventListener('touchstart',move,{passive:true});
+    hot.addEventListener('touchmove',move,{passive:true});
+    hot.addEventListener('touchend',leave);
+  }
+
+  // metric switcher
+  var gSwitch=document.getElementById('gSwitch');
+  [].slice.call(gSwitch.querySelectorAll('button')).forEach(function(b){
+    b.addEventListener('click',function(){
+      [].slice.call(gSwitch.querySelectorAll('button')).forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      render(b.getAttribute('data-m'));
+    });
+  });
+
+  // scroll-linked draw progress
+  function updateGrowth(){
+    var r=gCard.getBoundingClientRect();
+    var vh=window.innerHeight||document.documentElement.clientHeight;
+    // start when card top hits 82% vh; complete when it reaches 32% vh
+    var start=vh*0.82, end=vh*0.32;
+    var p=(start - r.top)/(start - end);
+    gP=Math.max(0,Math.min(1,p));
+    if(reduce) gP=1;
+    apply();
+  }
+
+  render('students');
+  if(reduce){ gP=1; apply(); }
+
+  /* scroll progress + nav active state + reveals + growth */
+  var prog=document.getElementById('progress');
+  var secs=[].slice.call(document.querySelectorAll('section[id]'));
+  var links=[].slice.call(document.querySelectorAll('.nav-links a'));
+  function onScroll(){
+    var h=document.documentElement;
+    var sc=h.scrollTop, max=h.scrollHeight-h.clientHeight;
+    prog.style.width=(max>0?(sc/max*100):0)+'%';
+    var cur='';
+    secs.forEach(function(s){ if(s.getBoundingClientRect().top<=140) cur=s.id; });
+    links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href')==='#'+cur); });
+    updateGrowth();
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',function(){ render(curMetric); onScroll(); },{passive:true});
+  onScroll();
+
+  if ('IntersectionObserver' in window && !reduce){
+    var ioR=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); ioR.unobserve(e.target);} });
+    },{threshold:.12});
+    [].slice.call(document.querySelectorAll('.reveal')).forEach(function(r){ ioR.observe(r); });
+  } else {
+    [].slice.call(document.querySelectorAll('.reveal')).forEach(function(r){ r.classList.add('in'); });
+  }
+})();
+</script>
+</body>
+</html>
