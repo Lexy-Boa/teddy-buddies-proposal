@@ -139,6 +139,18 @@
   .tag.operate{background:rgba(139,92,246,0.16);color:var(--user)}
   .tag.flat{background:rgba(16,185,129,0.15);color:var(--win)}
 
+  /* ---------- TLDR card ---------- */
+  .tldr{background:linear-gradient(180deg,rgba(16,185,129,0.06),rgba(245,158,11,0.03));
+    border:1px solid rgba(16,185,129,0.22);border-radius:22px;padding:30px 36px;margin-top:8px}
+  .tldr h3{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--win);
+    margin:0 0 14px;font-weight:700}
+  .tldr ul{margin:0;list-style:none}
+  .tldr ul li{position:relative;padding:7px 0 7px 22px;color:var(--t2);font-size:15.5px;line-height:1.6}
+  .tldr ul li:before{content:"";position:absolute;left:0;top:16px;width:6px;height:6px;
+    border-radius:50%;background:var(--win);opacity:.85}
+  .tldr ul li b{color:var(--t1);font-weight:600}
+  .tldr ul li b.num{font-variant-numeric:tabular-nums;color:var(--kelly)}
+
   /* ---------- exec summary cards ---------- */
   .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:26px 0 6px}
   .kpi{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 18px;
@@ -293,6 +305,7 @@
   <div class="nav-in">
     <div class="brand"><b>Teddy&nbsp;Buddies</b> <span class="x">×</span> <i>AIBC&nbsp;Foundry</i></div>
     <div class="nav-links">
+      <a href="#tldr">TL;DR</a>
       <a href="#note">Note</a>
       <a href="#summary">Summary</a>
       <a href="#background">Background</a>
@@ -313,22 +326,39 @@
     <div class="eyebrow">A Services Proposal</div>
     <h1 class="title"><b>Teddy&nbsp;Buddies</b><span class="x">×</span><i>AIBC&nbsp;Foundry</i></h1>
     <p class="sub">Formalising the full scope under a single, transparent retainer.</p>
-    <a class="scrollcue" href="#note" aria-label="Scroll to the personal note">
-      <span class="lbl">A personal note first</span>
+    <a class="scrollcue" href="#tldr" aria-label="Scroll to the summary">
+      <span class="lbl">The deal at a glance</span>
       <span class="rail"><span class="bead"></span></span>
     </a>
   </header>
+
+  <!-- ============ TLDR ============ -->
+  <section id="tldr" class="wrap reveal">
+    <div class="kicker">TL;DR</div>
+    <h2>The deal, in seven lines</h2>
+    <div class="tldr" style="margin-top:22px">
+      <h3>What Teddy Buddies is signing up to</h3>
+      <ul>
+        <li><b>Cash retainer to AIBC Foundry</b> (Jachin's bank transfer) — <b class="num">₹40,000 / month</b>. This is the entire remuneration for advisory, operations, AI department buildout, BD, marketing oversight, and franchise-readiness work.</li>
+        <li><b>AI Department subscriptions</b> — <b class="num">₹21,200 / month</b>, paid <b>directly by Teddy Buddies on its company card / account</b>. Not routed through AIBC, not given to Jachin as cash.</li>
+        <li><b>Total monthly cost to Teddy Buddies</b> — <b class="num">₹61,200 / month</b> (₹40,000 cash + ₹21,200 AI subs).</li>
+        <li><b>Year 1 total</b> — <b class="num">₹7,34,400</b> (≈ 3.25% of TB annual revenue).</li>
+        <li><b>Standard list price</b> ₹1,10,000/mo, with a ₹70,000/mo family/founder discount baked in (₹50k goodwill + ₹20k for routing tooling cost directly to TB instead of bundling it).</li>
+        <li><b>Term</b> — open-ended, 60-day written notice either side. Quarterly formal review, monthly informal check-in, 10% annual escalation on list price.</li>
+        <li><b>Start date</b> — 1 June 2026.</li>
+      </ul>
+    </div>
+  </section>
 
   <!-- ============ PERSONAL NOTE ============ -->
   <section id="note" class="wrap reveal">
     <div class="kicker">Before the numbers</div>
     <h2>A Personal Note Before the Numbers</h2>
     <div class="note-card" style="margin-top:24px">
-      <p>This proposal is unusual to write, and I want to acknowledge that openly before we get into the commercial detail.</p>
-      <p>Teddy Buddies is family. I hold a small shareholding and that does not change the fact that the school's growth is, for me, a personal matter before it is a professional one. None of that goes away when we sign a services agreement.</p>
-      <p>What is changing is that the scope of what I am doing for Teddy Buddies has expanded well beyond the original ₹10,000/month arrangement that covered social media and digital marketing oversight. The AI department buildout, the operational involvement, the franchising and SOP groundwork, and the strategic advisory work coordinated through daily standup calls, along with social media &amp; marketing oversight — including growing the board members' personal presence on Instagram and LinkedIn — belong inside a properly structured engagement between Teddy Buddies and my consultancy, AIBC Foundry.</p>
-      <p>The pricing in this proposal is built honestly: a market-rate list price that I would quote any external SME for the same scope, and a transparent family/founder discount that reduces the net cost to Teddy Buddies. I have chosen to write it this way because it is fair to both sides and because it leaves the family relationship and the business relationship cleanly separable.</p>
-      <p>If anything in here feels off — too much, too little, wrong structure — I am all ears to hear it and rework it than have unspoken concerns sit in the background.</p>
+      <p>Teddy Buddies is family. I hold a small shareholding and the school's growth is, for me, a personal matter before it is a professional one. None of that goes away when we sign a services agreement.</p>
+      <p>What is changing is that the scope of what I am doing for Teddy Buddies has expanded well beyond the original ₹10,000/month social-media oversight. The AI department buildout, the embedded operational involvement, the franchising and SOP groundwork, the strategic advisory through the daily standups, and the marketing + board IG/LinkedIn growth — all of it belongs inside a properly structured engagement between Teddy Buddies and my consultancy, AIBC Foundry.</p>
+      <p>Following the board discussion, the structure has been cleaned up so the two streams are clearly separated: my cash remuneration, and the AI department's subscription costs. They are now billed separately, to different accounts — that section spells out exactly how.</p>
+      <p>If anything in here feels off — too much, too little, wrong structure — I would rather rework it than have unspoken concerns sit in the background.</p>
     </div>
   </section>
 
@@ -337,26 +367,27 @@
     <div class="kicker">01 — Executive Summary</div>
     <h2>The engagement at a glance</h2>
     <div class="kpis">
-      <div class="kpi k1"><div class="lab">Standard list price</div>
-        <div class="val" data-count="110000" data-prefix="₹">₹0<small> / mo</small></div></div>
-      <div class="kpi k2"><div class="lab">Family / founder discount</div>
-        <div class="val">– ₹50,000<small> / mo</small></div></div>
-      <div class="kpi k3"><div class="lab">Net retainer · flat</div>
-        <div class="val" data-count="60000" data-prefix="₹">₹0<small> / mo</small></div></div>
+      <div class="kpi k1"><div class="lab">Cash retainer — Jachin's bank</div>
+        <div class="val" data-count="40000" data-prefix="₹">₹0<small> / mo</small></div></div>
+      <div class="kpi k2"><div class="lab">AI subs — TB company card</div>
+        <div class="val" data-count="21200" data-prefix="₹">₹0<small> / mo</small></div></div>
+      <div class="kpi k3"><div class="lab">Total cost to TB</div>
+        <div class="val" data-count="61200" data-prefix="₹">₹0<small> / mo</small></div></div>
       <div class="kpi k4"><div class="lab">Year 1 total</div>
-        <div class="val" data-count="720000" data-prefix="₹">₹0<small> · ≈3.2% rev</small></div></div>
+        <div class="val" data-count="734400" data-prefix="₹">₹0<small> · ≈3.25% rev</small></div></div>
     </div>
     <table class="tbl">
       <thead><tr><th>Item</th><th>Value</th></tr></thead>
       <tbody>
-        <tr><td>AIBC Foundry standard list price</td><td class="num">₹1,10,000 / month</td></tr>
-        <tr><td>Family / founder discount</td><td class="num">– ₹50,000 / month</td></tr>
-        <tr><td>Net retainer to TB <span class="tag flat">Flat · every month</span></td><td class="num">₹60,000 / month</td></tr>
-        <tr><td>AI tooling absorbed by AIBC Foundry</td><td class="num">~₹21,000 / month value</td></tr>
+        <tr><td>AIBC Foundry standard list price (full bundle)</td><td class="num">₹1,10,000 / month</td></tr>
+        <tr><td>Family / founder discount (incl. tooling routed direct)</td><td class="num">– ₹70,000 / month</td></tr>
+        <tr><td><strong>Cash retainer to AIBC</strong> — bank transfer to Jachin Jose Victor <span class="tag flat">Flat · every month</span></td><td class="num">₹40,000 / month</td></tr>
+        <tr><td><strong>AI Department subscriptions</strong> — charged directly to TB company card / account (not routed through AIBC, not given to Jachin as cash)</td><td class="num">₹21,200 / month</td></tr>
+        <tr><td>Total monthly outlay for Teddy Buddies</td><td class="num">₹61,200 / month</td></tr>
         <tr><td>Term</td><td>Open-ended, 60-day notice either side</td></tr>
         <tr><td>Review cadence</td><td>Quarterly formal, monthly informal</td></tr>
-        <tr><td>Annual escalation</td><td>10% / year, or renegotiated at review</td></tr>
-        <tr><td>Year 1 total</td><td class="num">₹7,20,000 (≈ 3.2% of TB annual revenue)</td></tr>
+        <tr><td>Annual escalation</td><td>10% / year on list price, renegotiated at review</td></tr>
+        <tr><td>Year 1 total cost to TB</td><td class="num">₹7,34,400 (≈ 3.25% of TB annual revenue)</td></tr>
       </tbody>
     </table>
   </section>
@@ -417,30 +448,33 @@
       <li>Ongoing AI operations + strategic advisory + embedded operational involvement, bundled, typically starts between ₹90,000 and ₹1,40,000 per month for SMEs of Teddy Buddies' size and revenue profile.</li>
     </ul>
 
-    <h3>4.2 &nbsp;Family / Founder Discount</h3>
-    <p>This is recorded explicitly so that our service terms remain clean and transparent, and so that the standard AIBC Foundry rate is not implicitly devalued (w.r.t. future clients). It is a single flat retainer — no phase step-ups, no build-vs-operate split.</p>
+    <h3>4.2 &nbsp;Two Clean Streams — Cash Retainer + AI Subscriptions</h3>
+    <p>Following the board's request for an explicit split between my remuneration and the AI department's costs, the engagement is structured as <strong>two distinct streams, billed to two distinct accounts</strong>:</p>
     <table class="tbl">
-      <thead><tr><th>Component</th><th>Duration</th><th>List price</th><th>Discount</th><th>Net retainer to TB</th></tr></thead>
+      <thead><tr><th>Stream</th><th>Who pays whom</th><th>List</th><th>Discount</th><th>Final</th></tr></thead>
       <tbody>
-        <tr><td><span class="tag flat">Flat retainer</span></td><td>Every month</td><td class="num">₹1,10,000</td><td class="num">–₹50,000</td><td class="num">₹60,000 / month</td></tr>
+        <tr><td><strong>Cash retainer to AIBC</strong> <span class="tag flat">Flat / mo</span></td><td>TB → bank transfer to <strong>Jachin Jose Victor</strong></td><td class="num">₹1,10,000</td><td class="num">–₹70,000</td><td class="num">₹40,000 / month</td></tr>
+        <tr><td><strong>AI Department subscriptions</strong> <span class="tag operate">Direct billing</span></td><td>TB <strong>company card / account</strong> → vendors directly</td><td class="num" colspan="2">At-cost, no markup</td><td class="num">₹21,200 / month</td></tr>
+        <tr><td colspan="4" style="color:var(--t1)"><strong>Total monthly outlay for Teddy Buddies</strong></td><td class="num" style="color:var(--kelly)">₹61,200 / month</td></tr>
       </tbody>
     </table>
-    <p>Earlier drafts split this into a heavier "Build" phase and a lighter "Operate" phase. We have deliberately collapsed that into one flat ₹60,000/month figure: the buildout-heavy early months (AI department deployment, SOP drafting, franchise package preparation) are carried at the same rate as the steady-state work — a simplification and an act of goodwill that keeps the engagement easy to budget and easy to read.</p>
+    <p>The ₹70,000 discount on the cash retainer breaks down as: ₹50,000 family/founder goodwill + ₹20,000 reflecting the fact that the AI tooling cost is no longer being absorbed into the retainer (it is now charged at-cost, directly to TB's card). This is a goodwill act on both sides: TB gets full transparency on tooling costs, AIBC stops bundling third-party subscription costs inside a consulting fee.</p>
+    <p><strong>Important:</strong> The ₹21,200/month for AI subscriptions is <strong>not given to Jachin in cash, ever</strong>. Jachin will link the relevant cloud / OpenAI / Anthropic / Gemini / Captions.ai / Higgsfield subscriptions directly to the Teddy Buddies company card and bank account, so the invoices land on TB's books — never as a reimbursement, never as a top-up, never as cash to an individual.</p>
   </section>
 
   <!-- ============ INTERACTIVE PRICING EXPLORER ============ -->
   <section id="pricing" class="wrap reveal">
     <div class="kicker">Explore — the same numbers, made tangible</div>
     <h2>Pricing Explorer</h2>
-    <p class="lead">One flat retainer, every month. Hover any term to read why it is what it is — and scrub the year to see exactly where ₹7,20,000 comes from.</p>
+    <p class="lead">Two streams, each flat every month: <strong>₹40,000 cash to AIBC</strong> + <strong>₹21,200 AI subs paid direct by TB</strong>. Hover any term to see the reasoning — scrub the year to confirm the ₹7,34,400 total.</p>
 
     <div class="explorer" id="explorer">
       <div class="ex-head">
         <div>
-          <div class="t">List price → discount → net retainer</div>
-          <div class="s" id="exPhaseSub">One flat retainer — every month, no phase step-ups</div>
+          <div class="t">List → discount → cash retainer (+ AI subs paid direct)</div>
+          <div class="s" id="exPhaseSub">Cash retainer flat every month — AI subs charged to TB card at-cost</div>
         </div>
-        <div class="flat-pill"><i></i> Flat · ₹60,000 / mo</div>
+        <div class="flat-pill"><i></i> ₹40k cash · ₹21.2k subs · ₹61.2k total</div>
       </div>
 
       <div class="equation">
@@ -451,54 +485,71 @@
         <div class="op">−</div>
         <div class="term disc" data-k="disc">
           <div class="tl">Family / founder discount</div>
-          <div class="tv" id="vDisc">₹50,000</div>
+          <div class="tv" id="vDisc">₹70,000</div>
         </div>
         <div class="op">=</div>
         <div class="term net" id="netTerm" data-k="net">
-          <div class="tl">Net retainer to TB</div>
-          <div class="tv" id="vNet">₹60,000</div>
+          <div class="tl">Cash retainer (Jachin's bank)</div>
+          <div class="tv" id="vNet">₹40,000</div>
         </div>
       </div>
 
       <div class="ex-explain idle" id="exExplain">
-        <div class="ed">Hover the list price, the discount, or the net retainer to see the reasoning — in the proposal's own words.</div>
+        <div class="ed">Hover the list price, the discount, or the cash retainer to see the reasoning — in the proposal's own words.</div>
+      </div>
+
+      <div style="margin-top:22px;background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.22);border-radius:14px;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">
+        <div>
+          <div style="font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--user);font-weight:600;margin-bottom:6px">+ AI Subscriptions (Paid Direct by TB)</div>
+          <div style="font-size:13.5px;color:var(--t2)">Charged to TB company card / account — not routed through AIBC, not paid to Jachin in cash.</div>
+        </div>
+        <div style="font-size:24px;font-weight:600;color:var(--user);font-variant-numeric:tabular-nums">₹21,200<span style="font-size:12px;color:var(--t3);font-weight:400;letter-spacing:0"> / mo</span></div>
       </div>
 
       <div class="year">
         <div class="yhead">
-          <div class="yl">Year 1 — month by month</div>
-          <div class="yt">Total <b id="yearTotal">₹7,20,000</b> &nbsp;<span style="color:var(--t3)">≈ 3.2% of TB annual revenue</span></div>
+          <div class="yl">Year 1 — total monthly cost to TB</div>
+          <div class="yt">Total <b id="yearTotal">₹7,34,400</b> &nbsp;<span style="color:var(--t3)">≈ 3.25% of TB annual revenue</span></div>
         </div>
         <div class="strip" id="strip"></div>
         <div class="strip-leg">
-          <span><i class="dot b"></i> Flat retainer — ₹60,000 × 12 = ₹7,20,000</span>
+          <span><i class="dot b"></i> ₹40k cash + ₹21.2k AI subs = ₹61,200 × 12 = ₹7,34,400</span>
         </div>
       </div>
     </div>
 
     <!-- 4.3 -->
-    <h3>4.3 &nbsp;What the Retainer Includes Beyond Time</h3>
-    <p>The retainer also absorbs the following AI infrastructure costs, which AIBC Foundry carries on behalf of Teddy Buddies:</p>
+    <h3>4.3 &nbsp;AI Department Subscriptions — Paid Directly by Teddy Buddies</h3>
+    <p>Jachin is the AI Head of the Teddy Buddies AI Department. The subscriptions below power that department's work — automation, content generation, parent communications, content production for TB social channels, model evaluations, and capability testing. They are <strong>Teddy Buddies' operating cost, not Jachin's personal cost</strong>, and they are billed accordingly:</p>
     <div class="absorb" style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px 28px;margin:22px 0">
       <div class="abar" id="abar" style="display:flex;height:18px;border-radius:7px;overflow:hidden;margin:6px 0 20px;border:1px solid var(--border)">
-        <i class="s0" data-i="0" style="display:block;height:100%;transition:.22s;opacity:.85;background:var(--kelly);flex:13000"></i>
-        <i class="s1" data-i="1" style="display:block;height:100%;transition:.22s;opacity:.85;background:var(--user);flex:3000"></i>
-        <i class="s2" data-i="2" style="display:block;height:100%;transition:.22s;opacity:.85;background:var(--win);flex:5000"></i>
+        <i class="s0" data-i="0" style="display:block;height:100%;transition:.22s;opacity:.85;background:var(--kelly);flex:12500"></i>
+        <i class="s1" data-i="1" style="display:block;height:100%;transition:.22s;opacity:.85;background:var(--user);flex:2000"></i>
+        <i class="s2" data-i="2" style="display:block;height:100%;transition:.22s;opacity:.85;background:var(--win);flex:1000"></i>
+        <i class="s3" data-i="3" style="display:block;height:100%;transition:.22s;opacity:.85;background:#22D3EE;flex:1000"></i>
+        <i class="s4" data-i="4" style="display:block;height:100%;transition:.22s;opacity:.85;background:#F472B6;flex:4700"></i>
       </div>
       <div class="arow" data-i="0" onmouseenter="hiAbsorb(0)" onmouseleave="hiAbsorb(-1)" style="display:flex;justify-content:space-between;align-items:center;padding:11px 12px;border-radius:10px;transition:.16s;font-size:14.5px;color:var(--t2)">
-        <span class="an" style="display:flex;align-items:center;gap:11px"><i class="sw" style="width:10px;height:10px;border-radius:3px;background:var(--kelly)"></i>Anthropic Claude Max subscription</span>
-        <span class="av" style="font-variant-numeric:tabular-nums;font-family:var(--mono);color:var(--t1)">₹13,000</span></div>
+        <span class="an" style="display:flex;align-items:center;gap:11px"><i class="sw" style="width:10px;height:10px;border-radius:3px;background:var(--kelly)"></i>Anthropic Claude Max</span>
+        <span class="av" style="font-variant-numeric:tabular-nums;font-family:var(--mono);color:var(--t1)">₹12,500</span></div>
       <div class="arow" data-i="1" onmouseenter="hiAbsorb(1)" onmouseleave="hiAbsorb(-1)" style="display:flex;justify-content:space-between;align-items:center;padding:11px 12px;border-radius:10px;transition:.16s;font-size:14.5px;color:var(--t2)">
-        <span class="an" style="display:flex;align-items:center;gap:11px"><i class="sw" style="width:10px;height:10px;border-radius:3px;background:var(--user)"></i>ChatGPT Plus / Pro</span>
-        <span class="av" style="font-variant-numeric:tabular-nums;font-family:var(--mono);color:var(--t1)">₹3,000</span></div>
+        <span class="an" style="display:flex;align-items:center;gap:11px"><i class="sw" style="width:10px;height:10px;border-radius:3px;background:var(--user)"></i>OpenAI / ChatGPT</span>
+        <span class="av" style="font-variant-numeric:tabular-nums;font-family:var(--mono);color:var(--t1)">₹2,000</span></div>
       <div class="arow" data-i="2" onmouseenter="hiAbsorb(2)" onmouseleave="hiAbsorb(-1)" style="display:flex;justify-content:space-between;align-items:center;padding:11px 12px;border-radius:10px;transition:.16s;font-size:14.5px;color:var(--t2)">
-        <span class="an" style="display:flex;align-items:center;gap:11px"><i class="sw" style="width:10px;height:10px;border-radius:3px;background:var(--win)"></i>Other AI tools and subscriptions</span>
-        <span class="av" style="font-variant-numeric:tabular-nums;font-family:var(--mono);color:var(--t1)">₹5,000</span></div>
+        <span class="an" style="display:flex;align-items:center;gap:11px"><i class="sw" style="width:10px;height:10px;border-radius:3px;background:var(--win)"></i>Google Gemini</span>
+        <span class="av" style="font-variant-numeric:tabular-nums;font-family:var(--mono);color:var(--t1)">₹1,000</span></div>
+      <div class="arow" data-i="3" onmouseenter="hiAbsorb(3)" onmouseleave="hiAbsorb(-1)" style="display:flex;justify-content:space-between;align-items:center;padding:11px 12px;border-radius:10px;transition:.16s;font-size:14.5px;color:var(--t2)">
+        <span class="an" style="display:flex;align-items:center;gap:11px"><i class="sw" style="width:10px;height:10px;border-radius:3px;background:#22D3EE"></i>Captions.ai</span>
+        <span class="av" style="font-variant-numeric:tabular-nums;font-family:var(--mono);color:var(--t1)">₹1,000</span></div>
+      <div class="arow" data-i="4" onmouseenter="hiAbsorb(4)" onmouseleave="hiAbsorb(-1)" style="display:flex;justify-content:space-between;align-items:center;padding:11px 12px;border-radius:10px;transition:.16s;font-size:14.5px;color:var(--t2)">
+        <span class="an" style="display:flex;align-items:center;gap:11px"><i class="sw" style="width:10px;height:10px;border-radius:3px;background:#F472B6"></i>Higgsfield AI</span>
+        <span class="av" style="font-variant-numeric:tabular-nums;font-family:var(--mono);color:var(--t1)">₹4,700</span></div>
       <div class="arow tot" style="display:flex;justify-content:space-between;align-items:center;padding:16px 12px 11px;border-top:1px solid var(--border);margin-top:8px;font-weight:600">
-        <span class="an" style="color:var(--t1)">Total absorbed</span>
-        <span class="av" style="font-variant-numeric:tabular-nums;font-family:var(--mono);color:var(--kelly);font-size:17px">~₹21,000 / month</span></div>
+        <span class="an" style="color:var(--t1)">Total — paid directly by TB</span>
+        <span class="av" style="font-variant-numeric:tabular-nums;font-family:var(--mono);color:var(--kelly);font-size:17px">₹21,200 / month</span></div>
     </div>
-    <p>These tools are shared across AIBC Foundry's portfolio, so Teddy Buddies is not paying full freight for any single subscription — but the capability they enable is fully available to TB's work. Additionally, all new AI upgrades can be tested by the AI department from these subscriptions before actually purchasing them for members of staff or in bigger numbers.</p>
+    <p><strong>How this is billed:</strong> Jachin will link each of the above subscription accounts directly to <strong>Teddy Buddies' company card / bank account</strong>. The vendors charge TB; TB sees the invoices on its own books; no amount of this ₹21,200 is routed via AIBC Foundry, and none of it is paid to Jachin in cash, ever. Jachin's only cash income from TB is the ₹40,000 retainer.</p>
+    <p>Because Jachin operates these subscriptions as the AI Head, capability is also available to TB across the full department's surface area — including testing new AI upgrades before purchasing them in seat numbers for the wider staff, and content production for TB's social presence.</p>
 
     <!-- 4.4 -->
     <h3>4.4 &nbsp;Out of Scope Work</h3>
@@ -557,7 +608,7 @@
     <div class="kicker">05 — Term and Termination</div>
     <h2>Term and Termination</h2>
     <ul>
-      <li><strong>Start date:</strong> 1 May 2026.</li>
+      <li><strong>Start date:</strong> 1 June 2026.</li>
       <li><strong>Term:</strong> Open-ended engagement.</li>
       <li><strong>Notice period:</strong> 60 days from either side, in writing.</li>
     </ul>
@@ -579,8 +630,9 @@
     <div class="kicker">07 — Payment Terms</div>
     <h2>Payment Terms</h2>
     <ul>
-      <li><strong>Invoicing:</strong> Monthly, in advance, by the 6th of each calendar month.</li>
-      <li><strong>Mode:</strong> Bank transfer (to Jachin Jose Victor).</li>
+      <li><strong>Cash retainer — ₹40,000 / month:</strong> Bank transfer to <strong>Jachin Jose Victor</strong>, monthly in advance by the 6th of each calendar month. This is the <em>entire</em> cash remuneration for the engagement.</li>
+      <li><strong>AI Department subscriptions — ₹21,200 / month:</strong> Charged directly to <strong>Teddy Buddies' company card / bank account</strong>. Each subscription is linked to TB's billing instrument at the vendor; TB receives the invoice; no reimbursement loop, no cash to an individual.</li>
+      <li><strong>What never happens:</strong> Cash transfers to Jachin for tooling. Bundled invoices that mix consulting fees and subscription costs. Reimbursement claims for AI subscriptions. The two streams stay separate, on different accounts, every month.</li>
     </ul>
   </section>
 
@@ -640,18 +692,18 @@
     counters.forEach(runCount);
   }
 
-  /* ---- Pricing Explorer (single flat retainer) ---- */
-  var FLAT = { list:110000, disc:50000, net:60000 };
-  var yearTotalVal = 720000;
+  /* ---- Pricing Explorer (cash retainer + direct AI subs) ---- */
+  var FLAT = { list:110000, disc:70000, net:40000 };
+  var yearTotalVal = 734400;
 
   /* term hover explanations — proposal's own words */
   var EX = {
     list:{ c:'#FFFFFF', t:'List price — the market rate',
       d:'“The AIBC Foundry standard rate for this scope of work — full-stack AI department buildout combined with strategic advisory, board-level digital-presence growth, and embedded operational involvement — is ₹1,10,000 per month.”' },
-    disc:{ c:'#10B981', t:'Family / founder discount',
-      d:'“A transparent family/founder discount that reduces the net cost to Teddy Buddies… recorded explicitly so that our service terms remain clean and transparent, and so that the standard AIBC Foundry rate is not implicitly devalued.”' },
-    net:{ c:'#F59E0B', t:'Net retainer — one flat figure',
-      d:'“One flat ₹60,000/month figure: the buildout-heavy early months are carried at the same rate as the steady-state work — a simplification and an act of goodwill that keeps the engagement easy to budget and easy to read.”' }
+    disc:{ c:'#10B981', t:'Family / founder discount (₹50k goodwill + ₹20k tooling routed direct)',
+      d:'“₹50,000 family/founder goodwill plus ₹20,000 reflecting that AI tooling cost is no longer absorbed into the retainer — it is now charged at-cost, directly to TB\'s card.”' },
+    net:{ c:'#F59E0B', t:'Cash retainer — Jachin\'s bank',
+      d:'“This is the entire cash remuneration for the engagement. AI Department subscriptions (₹21,200/mo) are billed separately, direct to TB\'s company card — never to Jachin in cash.”' }
   };
   var exBox=document.getElementById('exExplain');
   function showEx(key){
@@ -669,9 +721,9 @@
     t.addEventListener('mouseleave', resetEx);
   });
 
-  /* Year-1 strip — 12 months from start date 1 May 2026, flat ₹60,000 */
-  var months = ['May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr'];
-  var yrs    = ['’26','’26','’26','’26','’26','’26','’26','’26','’27','’27','’27','’27'];
+  /* Year-1 strip — 12 months from start date 1 June 2026, flat ₹61,200 total cost to TB */
+  var months = ['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May'];
+  var yrs    = ['’26','’26','’26','’26','’26','’26','’26','’27','’27','’27','’27','’27'];
   var strip=document.getElementById('strip'), yearTotalEl=document.getElementById('yearTotal');
   (function buildStrip(){
     strip.innerHTML='';
@@ -679,7 +731,7 @@
       var cell=document.createElement('div');
       cell.className='mon';
       cell.innerHTML = months[i] +
-        '<div class="mtip">'+months[i]+' '+yrs[i]+' · Flat · <b>'+inr(60000)+'</b></div>';
+        '<div class="mtip">'+months[i]+' '+yrs[i]+' · ₹40k cash + ₹21.2k subs · <b>'+inr(61200)+'</b></div>';
       strip.appendChild(cell);
     }
   })();
@@ -693,7 +745,7 @@
           (function f(now){
             var p=Math.min(1,(now-t0)/900), k=1-Math.pow(1-p,3);
             yearTotalEl.textContent = inr(yearTotalVal*k);
-            if(p<1) requestAnimationFrame(f); else yearTotalEl.textContent='₹7,20,000';
+            if(p<1) requestAnimationFrame(f); else yearTotalEl.textContent='₹7,34,400';
           })(t0);
         }
       });
